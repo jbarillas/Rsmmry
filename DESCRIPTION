@@ -1,0 +1,19 @@
+Package: Rsmmry
+Title: API for SMMRY
+Version: 0.0.0.9000
+Author: c(
+  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("cre", "cph", "aut"))
+  )
+Maintainer: Clemens Schmid <clemens@nevrome.de>
+Description: Allows to send API requests to SMMRY. SMMRY offers a 
+             web service to automatically summarize text.  
+Date: 2017-04-22
+Depends: R (>= 3.3.3)
+License: GPL-2 | file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Imports: 
+    httr (>= 1.2.1)
+Suggests: 
+    testthat
