@@ -5,6 +5,8 @@
 Rsmmry
 --------
 
+Work in progress. Not really usable yet. 
+
 Installation
 ------------
 
