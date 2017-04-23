@@ -3,6 +3,7 @@
 #' test
 #' 
 #' @param x test
+#' @param quick test 
 #' @param isurl test
 #' @param length test
 #' @param keywords test
@@ -37,15 +38,15 @@
 #'
 #' @export
 smmry_api <- function(
-  x = NULL, isurl = NULL, length = NULL, keywords = NULL, 
-  quote_avoid = FALSE, breaks = FALSE
+  x = NULL, quick = TRUE, isurl = NULL, length = NULL, 
+  keywords = NULL, quote_avoid = FALSE, breaks = FALSE
   ) {
   
   # remove breaks from input x
   x <- gsub("[\r\n]", "", x)
   
   # remove multiple spaces from input x
-  x <-  gsub(
+  x <- gsub(
     "(?<=[\\s])\\s*|^\\s+|\\s+$", "", 
     x, 
     perl = TRUE
@@ -57,6 +58,7 @@ smmry_api <- function(
     isurl <- TRUE
   }
   
+  # parse url for api call
   url <- httr::modify_url(
     "http://api.smmry.com", 
     path = paste0(c(
@@ -94,9 +96,44 @@ smmry_api <- function(
       )
     ), collapse = "")
   )
-  url %>% httr::POST(
-    body = list(sm_api_input = x)
+  
+  #API request
+  api_result <- url %>% 
+    # add text data and send to smmry
+    httr::POST(
+      body = list(sm_api_input = x)
     ) %>%
-    httr::content() %>% 
-    return()
+    # extract content from request and return
+    httr::content(as = "parsed")
+  
+  # catch and print notices, warnings, and error messages
+  if (exists('sm_api_message', where = api_result)) {
+    message(
+      "SMMRY API message: ",
+      api_result[["sm_api_message"]]
+    )
+  }
+
+  # remove mysterious leading whitespace in sm_api_content
+  api_result[["sm_api_content"]] <- sub(
+    "^\\s+", "", 
+    api_result[["sm_api_content"]]
+  )
+  
+  # setup output
+  if (quick) {
+    
+    # return just reduced text
+    return(api_result[["sm_api_content"]])
+    
+  } else {
+    
+    # put complete api_result in own S3 data structure
+    result <- structure(
+      api_result,
+      class = "smmry_api"
+    )
+
+    return(result)
+  }
 }

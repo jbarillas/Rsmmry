@@ -4,11 +4,13 @@
 \alias{smmry_api}
 \title{test}
 \usage{
-smmry_api(x = NULL, isurl = NULL, length = NULL, keywords = NULL,
-  quote_avoid = FALSE, breaks = FALSE)
+smmry_api(x = NULL, quick = TRUE, isurl = NULL, length = NULL,
+  keywords = NULL, quote_avoid = FALSE, breaks = FALSE)
 }
 \arguments{
 \item{x}{test}
+
+\item{quick}{test}
 
 \item{isurl}{test}
 
