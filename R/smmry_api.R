@@ -31,7 +31,9 @@
 #'
 #' \dontrun{
 #'   smmry_api(x = lorem_ipsum)
+#'   smmry_api(x = lorem_ipsum, quick = FALSE)
 #'   smmry_api(x = testurl)
+#'   smmry_api(x = testurl, quick = FALSE)
 #' }
 #' 
 #' @importFrom magrittr "%>%"
@@ -41,6 +43,11 @@ smmry_api <- function(
   x = NULL, quick = TRUE, isurl = NULL, length = NULL, 
   keywords = NULL, quote_avoid = FALSE, breaks = FALSE
   ) {
+  
+  # check for an internet connecttion
+  if (!curl::has_internet()) {
+    stop("No internet connection. Can't use SMMRY API.")
+  }
   
   # remove breaks from input x
   x <- gsub("[\r\n]", "", x)
@@ -102,15 +109,26 @@ smmry_api <- function(
     # add text data and send to smmry
     httr::POST(
       body = list(sm_api_input = x)
-    ) %>%
+    ) %>% 
+    # catch and print http errors
+    check_for_http_error() %>%
     # extract content from request and return
     httr::content(as = "parsed")
   
-  # catch and print notices, warnings, and error messages
+  # catch and print SMMRY notices, warnings, and error 
+  # messages
   if (exists('sm_api_message', where = api_result)) {
     message(
       "SMMRY API message: ",
       api_result[["sm_api_message"]]
+    )
+  }
+  
+  # catch and print SMMRY limitation message
+  if (exists('sm_api_limitation', where = api_result)) {
+    message(
+      "SMMRY API limitations: ",
+      api_result[["sm_api_limitation"]]
     )
   }
 
@@ -136,4 +154,17 @@ smmry_api <- function(
 
     return(result)
   }
+}
+
+check_for_http_error <- function(x) { 
+  if (httr::http_error(x)) {
+    stop(
+      sprintf(
+        "HTTP Error: ", 
+        httr::status_code(x)
+      ),
+      call. = FALSE
+    )
+  }
+  return(x)
 }

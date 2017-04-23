@@ -46,7 +46,9 @@ testurl <- "https://en.wikipedia.org/wiki/Aregund"
 
 \dontrun{
   smmry_api(x = lorem_ipsum)
+  smmry_api(x = lorem_ipsum, quick = FALSE)
   smmry_api(x = testurl)
+  smmry_api(x = testurl, quick = FALSE)
 }
 
 }
