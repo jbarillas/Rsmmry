@@ -2,8 +2,8 @@
 #' 
 #' test
 #' 
-#' @param text test
-#' @param url test
+#' @param x test
+#' @param isurl test
 #' @param length test
 #' @param keywords test
 #' @param quote_avoid test
@@ -26,24 +26,36 @@
 #'          takimata sanctus est Lorem ipsum dolor sit 
 #'          amet."
 #'
-#' smmry_api(text = lorem_ipsum)
+#' testurl <- "https://en.wikipedia.org/wiki/Aregund"
 #'
+#' \dontrun{
+#'   smmry_api(x = lorem_ipsum)
+#'   smmry_api(x = testurl)
+#' }
+#' 
 #' @importFrom magrittr "%>%"
 #'
 #' @export
 smmry_api <- function(
-  text = NULL, url = NULL, length = NULL, keywords = NULL, 
+  x = NULL, isurl = NULL, length = NULL, keywords = NULL, 
   quote_avoid = FALSE, breaks = FALSE
   ) {
   
-  # remove breaks
-  text <- gsub("[\r\n]", "", text)
-  # remove multiple spaces
-  text <-  gsub(
+  # remove breaks from input x
+  x <- gsub("[\r\n]", "", x)
+  
+  # remove multiple spaces from input x
+  x <-  gsub(
     "(?<=[\\s])\\s*|^\\s+|\\s+$", "", 
-    text, 
+    x, 
     perl = TRUE
   )
+  
+  # check, if input x is a currently working url
+  # only if isurl is not set (NULL)
+  if (is.null(isurl) && RCurl::url.exists(x)) {
+    isurl <- TRUE
+  }
   
   url <- httr::modify_url(
     "http://api.smmry.com", 
@@ -76,14 +88,14 @@ smmry_api <- function(
       ),
       # input url
       ifelse(
-        !is.null(url), 
-        paste0("&SM_URL=", url),
+        isurl, 
+        paste0("&SM_URL=", x),
         ""
       )
     ), collapse = "")
   )
   url %>% httr::POST(
-    body = list(sm_api_input = text)
+    body = list(sm_api_input = x)
     ) %>%
     httr::content() %>% 
     return()

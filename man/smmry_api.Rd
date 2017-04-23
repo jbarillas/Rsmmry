@@ -4,13 +4,13 @@
 \alias{smmry_api}
 \title{test}
 \usage{
-smmry_api(text = NULL, url = NULL, length = NULL, keywords = NULL,
+smmry_api(x = NULL, isurl = NULL, length = NULL, keywords = NULL,
   quote_avoid = FALSE, breaks = FALSE)
 }
 \arguments{
-\item{text}{test}
+\item{x}{test}
 
-\item{url}{test}
+\item{isurl}{test}
 
 \item{length}{test}
 
@@ -40,6 +40,11 @@ lorem_ipsum <- "Lorem ipsum dolor sit amet, consetetur
          takimata sanctus est Lorem ipsum dolor sit 
          amet."
 
-smmry_api(text = lorem_ipsum)
+testurl <- "https://en.wikipedia.org/wiki/Aregund"
+
+\dontrun{
+  smmry_api(x = lorem_ipsum)
+  smmry_api(x = testurl)
+}
 
 }
