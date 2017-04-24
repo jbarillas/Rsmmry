@@ -44,13 +44,23 @@ smmry_api <- function(
   keywords = NULL, quote_avoid = FALSE, breaks = FALSE
   ) {
   
-  # check for an internet connecttion
+  # check for an internet connection
   if (!curl::has_internet()) {
     stop("No internet connection. Can't use SMMRY API.")
   }
   
   # set user agent
   ua <- httr::user_agent("http://github.com/nevrome/Rsmmry")
+  
+  # check, if access token to SMMRY is available
+  pat <- Sys.getenv('SMMRY_PAT')
+  if (identical(pat, "")) {
+    stop(
+      "Please set env var SMMRY_PAT to your SMMRY personal access token.
+      See https://github.com/nevrome/Rsmmry for more info.",
+      call. = FALSE
+    )
+  }
   
   # remove breaks from input x
   x <- gsub("[\r\n]", "", x)
@@ -73,7 +83,7 @@ smmry_api <- function(
     "http://api.smmry.com", 
     path = paste0(c(
       # api key
-      paste0("&SM_API_KEY=", Sys.getenv("SMMRY_PAT")),
+      paste0("&SM_API_KEY=", pat),
       # amount of sentences
       ifelse(
         !is.null(length), 
