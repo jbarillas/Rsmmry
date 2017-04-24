@@ -49,6 +49,9 @@ smmry_api <- function(
     stop("No internet connection. Can't use SMMRY API.")
   }
   
+  # set user agent
+  ua <- httr::user_agent("http://github.com/nevrome/Rsmmry")
+  
   # remove breaks from input x
   x <- gsub("[\r\n]", "", x)
   
@@ -104,16 +107,26 @@ smmry_api <- function(
     ), collapse = "")
   )
   
-  #API request
-  api_result <- url %>% 
+  # API request
+  api_result_raw <- url %>% 
     # add text data and send to smmry
     httr::POST(
       body = list(sm_api_input = x)
-    ) %>% 
-    # catch and print http errors
-    check_for_http_error() %>%
-    # extract content from request and return
-    httr::content(as = "parsed")
+    )
+    
+  # catch and print http errors
+  if (httr::http_error(api_result_raw)) {
+    stop(
+      sprintf(
+        "HTTP Error: ", 
+        httr::status_code(api_result_raw)
+      ),
+      call. = FALSE
+    )
+  }
+
+  # extract content from request
+  api_result <- api_result_raw %>% httr::content(as = "parsed")
   
   # catch and print SMMRY notices, warnings, and error 
   # messages
@@ -154,17 +167,4 @@ smmry_api <- function(
 
     return(result)
   }
-}
-
-check_for_http_error <- function(x) { 
-  if (httr::http_error(x)) {
-    stop(
-      sprintf(
-        "HTTP Error: ", 
-        httr::status_code(x)
-      ),
-      call. = FALSE
-    )
-  }
-  return(x)
 }
