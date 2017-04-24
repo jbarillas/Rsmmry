@@ -2,28 +2,49 @@
 % Please edit documentation in R/smmry_api.R
 \name{smmry_api}
 \alias{smmry_api}
-\title{test}
+\title{API to access the SMMRY web service}
 \usage{
-smmry_api(x = NULL, quick = TRUE, isurl = NULL, length = NULL,
-  keywords = NULL, quote_avoid = FALSE, breaks = FALSE)
+smmry_api(x, quick = TRUE, isurl = NULL, length = NULL, keywords = NULL,
+  quote_avoid = FALSE, breaks = FALSE)
 }
 \arguments{
-\item{x}{test}
+\item{x}{string. text \bold{or} url of the webpage to 
+summarize}
 
-\item{quick}{test}
+\item{quick}{boolean. switch to decide if the result should 
+be just the reduced text (default = \code{TRUE}), 
+or a comprehensiv list of the API results 
+(\code{FALSE})}
 
-\item{isurl}{test}
+\item{isurl}{boolean. switch to decide if x should be treated
+as text (\code{FALSE}) or url (\code{TRUE}). 
+If nothing is set (default = \code{NULL}), the 
+function decides autonomously}
 
-\item{length}{test}
+\item{length}{integer. number of sentences returned by SMMRY, 
+(default = \code{7})}
 
-\item{keywords}{test}
+\item{keywords}{integer. number of top keywords returned by
+SMMRY}
 
-\item{quote_avoid}{test}
+\item{quote_avoid}{boolean. switch to decide if the SMMRY
+result should (default = \code{FALSE}) or 
+shouldn't (\code{TRUE}) include quotations}
 
-\item{breaks}{test}
+\item{breaks}{boolean. switch to decide if the SMMRY result
+should (\code{TRUE}) or shouldn't 
+(default = \code{FALSE}) contain the string 
+"[BREAK]" between each sentence}
 }
 \description{
-test
+SMMRY offers a service to automatically summarize 
+a webpage or block of text. \code{smmry_api} allows
+to access this service from within R. To use it
+you need a SMMRY API Key (\url{http://smmry.com/api}) 
+that has to be set as a environment variable 
+\code{SMMRY_PAT}. 
+See \url{https://github.com/nevrome/Rsmmry}) for a small
+introduction.
 }
 \examples{
 lorem_ipsum <- "Lorem ipsum dolor sit amet, consetetur 

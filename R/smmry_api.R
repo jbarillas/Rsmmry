@@ -1,14 +1,35 @@
-#' test
+#' API to access the SMMRY web service  
 #' 
-#' test
+#' SMMRY offers a service to automatically summarize 
+#' a webpage or block of text. \code{smmry_api} allows
+#' to access this service from within R. To use it
+#' you need a SMMRY API Key (\url{http://smmry.com/api}) 
+#' that has to be set as a environment variable 
+#' \code{SMMRY_PAT}. 
+#' See \url{https://github.com/nevrome/Rsmmry}) for a small
+#' introduction.   
 #' 
-#' @param x test
-#' @param quick test 
-#' @param isurl test
-#' @param length test
-#' @param keywords test
-#' @param quote_avoid test
-#' @param breaks test
+#' @param x string. text \bold{or} url of the webpage to 
+#'          summarize 
+#' @param quick boolean. switch to decide if the result should 
+#'              be just the reduced text (default = \code{TRUE}), 
+#'              or a comprehensiv list of the API results 
+#'              (\code{FALSE}) 
+#' @param isurl boolean. switch to decide if x should be treated
+#'              as text (\code{FALSE}) or url (\code{TRUE}). 
+#'              If nothing is set (default = \code{NULL}), the 
+#'              function decides autonomously  
+#' @param length integer. number of sentences returned by SMMRY, 
+#'               (default = \code{7})
+#' @param keywords integer. number of top keywords returned by
+#'                 SMMRY
+#' @param quote_avoid boolean. switch to decide if the SMMRY
+#'                    result should (default = \code{FALSE}) or 
+#'                    shouldn't (\code{TRUE}) include quotations
+#' @param breaks boolean. switch to decide if the SMMRY result
+#'               should (\code{TRUE}) or shouldn't 
+#'               (default = \code{FALSE}) contain the string 
+#'               "[BREAK]" between each sentence
 #'
 #' @examples 
 #' lorem_ipsum <- "Lorem ipsum dolor sit amet, consetetur 
@@ -40,7 +61,7 @@
 #'
 #' @export
 smmry_api <- function(
-  x = NULL, quick = TRUE, isurl = NULL, length = NULL, 
+  x, quick = TRUE, isurl = NULL, length = NULL, 
   keywords = NULL, quote_avoid = FALSE, breaks = FALSE
   ) {
   
