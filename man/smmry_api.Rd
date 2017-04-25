@@ -2,18 +2,18 @@
 % Please edit documentation in R/smmry_api.R
 \name{smmry_api}
 \alias{smmry_api}
-\title{API to access the SMMRY web service}
+\title{R API to access the SMMRY web service}
 \usage{
 smmry_api(x = NULL, quick = TRUE, isurl = NULL, length = NULL,
   keywords = NULL, quote_avoid = FALSE, breaks = FALSE)
 }
 \arguments{
 \item{x}{string. text \bold{or} url of the webpage to 
-summarize - uses data from clipboard, if x is not set.}
+summarize - uses data from clipboard, if x is not set}
 
 \item{quick}{boolean. switch to decide if the result should 
 be just the reduced text (default = \code{TRUE}), 
-or a comprehensiv list of the API results 
+or a comprehensiv list of the API output 
 (\code{FALSE})}
 
 \item{isurl}{boolean. switch to decide if x should be treated
@@ -38,30 +38,28 @@ should (\code{TRUE}) or shouldn't
 }
 \description{
 SMMRY offers a service to automatically summarize 
-a webpage or block of text. \code{smmry_api} allows
+a webpage or simply text. \code{smmry_api} allows
 to access this service from within R. To use it
 you need a SMMRY API Key (\url{http://smmry.com/api}) 
 that has to be set as a environment variable 
-\code{SMMRY_PAT}. 
-See \url{https://github.com/nevrome/Rsmmry}) for a small
-introduction.
+\code{SMMRY_PAT}.
 }
 \examples{
 lorem_ipsum <- "Lorem ipsum dolor sit amet, consetetur 
-         sadipscing elitr, sed diam nonumy eirmod 
-         tempor invidunt ut labore et dolore magna 
-         aliquyam erat, sed diam voluptua. At vero 
-         eos et accusam et justo duo dolores et ea 
-         rebum. Stet clita kasd gubergren, no sea 
-         takimata sanctus est Lorem ipsum dolor sit 
-         amet. Lorem ipsum dolor sit amet, consetetur 
-         sadipscing elitr, sed diam nonumy eirmod 
-         tempor invidunt ut labore et dolore magna 
-         aliquyam erat, sed diam voluptua. At vero 
-         eos et accusam et justo duo dolores et ea 
-         rebum. Stet clita kasd gubergren, no sea 
-         takimata sanctus est Lorem ipsum dolor sit 
-         amet."
+                sadipscing elitr, sed diam nonumy eirmod 
+                tempor invidunt ut labore et dolore magna 
+                aliquyam erat, sed diam voluptua. At vero 
+                eos et accusam et justo duo dolores et ea 
+                rebum. Stet clita kasd gubergren, no sea 
+                takimata sanctus est Lorem ipsum dolor sit 
+                amet. Lorem ipsum dolor sit amet, consetetur 
+                sadipscing elitr, sed diam nonumy eirmod 
+                tempor invidunt ut labore et dolore magna 
+                aliquyam erat, sed diam voluptua. At vero 
+                eos et accusam et justo duo dolores et ea 
+                rebum. Stet clita kasd gubergren, no sea 
+                takimata sanctus est Lorem ipsum dolor sit 
+                amet."
 
 testurl <- "https://en.wikipedia.org/wiki/Aregund"
 

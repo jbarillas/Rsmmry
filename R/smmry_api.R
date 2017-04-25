@@ -1,19 +1,17 @@
-#' API to access the SMMRY web service  
+#' R API to access the SMMRY web service  
 #' 
 #' SMMRY offers a service to automatically summarize 
-#' a webpage or block of text. \code{smmry_api} allows
+#' a webpage or simply text. \code{smmry_api} allows
 #' to access this service from within R. To use it
 #' you need a SMMRY API Key (\url{http://smmry.com/api}) 
 #' that has to be set as a environment variable 
 #' \code{SMMRY_PAT}. 
-#' See \url{https://github.com/nevrome/Rsmmry}) for a small
-#' introduction.   
 #' 
 #' @param x string. text \bold{or} url of the webpage to 
-#'          summarize - uses data from clipboard, if x is not set.
+#'          summarize - uses data from clipboard, if x is not set
 #' @param quick boolean. switch to decide if the result should 
 #'              be just the reduced text (default = \code{TRUE}), 
-#'              or a comprehensiv list of the API results 
+#'              or a comprehensiv list of the API output 
 #'              (\code{FALSE}) 
 #' @param isurl boolean. switch to decide if x should be treated
 #'              as text (\code{FALSE}) or url (\code{TRUE}). 
@@ -33,20 +31,20 @@
 #'
 #' @examples 
 #' lorem_ipsum <- "Lorem ipsum dolor sit amet, consetetur 
-#'          sadipscing elitr, sed diam nonumy eirmod 
-#'          tempor invidunt ut labore et dolore magna 
-#'          aliquyam erat, sed diam voluptua. At vero 
-#'          eos et accusam et justo duo dolores et ea 
-#'          rebum. Stet clita kasd gubergren, no sea 
-#'          takimata sanctus est Lorem ipsum dolor sit 
-#'          amet. Lorem ipsum dolor sit amet, consetetur 
-#'          sadipscing elitr, sed diam nonumy eirmod 
-#'          tempor invidunt ut labore et dolore magna 
-#'          aliquyam erat, sed diam voluptua. At vero 
-#'          eos et accusam et justo duo dolores et ea 
-#'          rebum. Stet clita kasd gubergren, no sea 
-#'          takimata sanctus est Lorem ipsum dolor sit 
-#'          amet."
+#'                 sadipscing elitr, sed diam nonumy eirmod 
+#'                 tempor invidunt ut labore et dolore magna 
+#'                 aliquyam erat, sed diam voluptua. At vero 
+#'                 eos et accusam et justo duo dolores et ea 
+#'                 rebum. Stet clita kasd gubergren, no sea 
+#'                 takimata sanctus est Lorem ipsum dolor sit 
+#'                 amet. Lorem ipsum dolor sit amet, consetetur 
+#'                 sadipscing elitr, sed diam nonumy eirmod 
+#'                 tempor invidunt ut labore et dolore magna 
+#'                 aliquyam erat, sed diam voluptua. At vero 
+#'                 eos et accusam et justo duo dolores et ea 
+#'                 rebum. Stet clita kasd gubergren, no sea 
+#'                 takimata sanctus est Lorem ipsum dolor sit 
+#'                 amet."
 #'
 #' testurl <- "https://en.wikipedia.org/wiki/Aregund"
 #'
@@ -65,6 +63,7 @@ smmry_api <- function(
   keywords = NULL, quote_avoid = FALSE, breaks = FALSE
   ) {
   
+  # check if x is empty and try to access the clipboard
   if (is.null(x) && clipr::clipr_available()) {
     x <- clipr::read_clip() %>% paste(collapse = '')
     message("x is not set - using data from clipboard.")
