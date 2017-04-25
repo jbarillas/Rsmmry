@@ -1,0 +1,20 @@
+language: R
+cache: packages
+r_packages:
+- covr
+
+matrix:
+  include:
+  - os: linux
+    dist: trusty
+    sudo: false
+    env: R_CODECOV=true
+    
+warnings_are_errors: true
+
+after_success:
+- Rscript -e 'library(covr); codecov()'
+
+env:
+  global:
+    secure: pvgkd+5Y4TDNXzhaNLQSCTiiJNTYEgl+EiZJ3VruuXVd8XLpdrg6AMDIZBcJHXNyu//sw0MXfaWZllHottFcAR+fcbfkp+Ovau+NdnYrogGztXvW1U7iBCwsFKL8SNMwSMITKhoGxcEXMoN+/HnxTiU1jFBekNPkCky5ws83j+RG90BmePCyN0cJGl0MDnODZ+47dUzdIxesi78757AsQbEi3FpO/MVoFuj+YW/kTxLqdtuMwLtX6LHDhTpCPtFM84VpPTxGaF7WiQgUE4TU5KhzmbPlbfgHlMOTjQBVt95lU4zgJR1IbqPnnnl+KStjkR37iqz10F4Muu8ukSJg/+y7VU/9v0eYUlS2p5XmuHHFzxm2Yss2w+oqw4xMSWH8FUAE6wpMBbkHQPgyGxTy1cmboQupK62+Sjw1SVi7wgkw34NwK7xDx8uWlF0QZROyusPCdf+WmH3pafhjlhQeSAuXpGdFOv2Xw/SNWkr10nJpn69VIdsdyeWfJdho3R6e18nom4ryT7fEICJ4t3I1iKBaybEZkphYGuZgoB88wsCRzbIQWotlv4uJ8B5caWc2ENPJuTbbKx9gesPrLQXZVQ0WZeGmGWGsFrdBSfXPUV2qlRBnU0PuLDc1TtAEgQpkHE5itCj+d3n2D7sFCYi9ZK+UJc/IvbfRBNuQ0/YlwS4=
