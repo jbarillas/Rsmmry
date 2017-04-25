@@ -10,7 +10,7 @@
 #' introduction.   
 #' 
 #' @param x string. text \bold{or} url of the webpage to 
-#'          summarize 
+#'          summarize - uses data from clipboard, if x is not set.
 #' @param quick boolean. switch to decide if the result should 
 #'              be just the reduced text (default = \code{TRUE}), 
 #'              or a comprehensiv list of the API results 
@@ -61,9 +61,14 @@
 #'
 #' @export
 smmry_api <- function(
-  x, quick = TRUE, isurl = NULL, length = NULL, 
+  x = NULL, quick = TRUE, isurl = NULL, length = NULL, 
   keywords = NULL, quote_avoid = FALSE, breaks = FALSE
   ) {
+  
+  if (is.null(x) && clipr::clipr_available()) {
+    x <- clipr::read_clip() %>% paste(collapse = '')
+    message("x is not set - using data from clipboard.")
+  }
   
   # check for an internet connection
   if (!curl::has_internet()) {

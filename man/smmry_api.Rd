@@ -4,12 +4,12 @@
 \alias{smmry_api}
 \title{API to access the SMMRY web service}
 \usage{
-smmry_api(x, quick = TRUE, isurl = NULL, length = NULL, keywords = NULL,
-  quote_avoid = FALSE, breaks = FALSE)
+smmry_api(x = NULL, quick = TRUE, isurl = NULL, length = NULL,
+  keywords = NULL, quote_avoid = FALSE, breaks = FALSE)
 }
 \arguments{
 \item{x}{string. text \bold{or} url of the webpage to 
-summarize}
+summarize - uses data from clipboard, if x is not set.}
 
 \item{quick}{boolean. switch to decide if the result should 
 be just the reduced text (default = \code{TRUE}), 
