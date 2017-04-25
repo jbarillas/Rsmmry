@@ -65,7 +65,7 @@ smmry_api <- function(
   
   # check if x is empty and try to access the clipboard
   if (is.null(x) && clipr::clipr_available()) {
-    x <- clipr::read_clip() %>% paste(collapse = '')
+    x <- clipr::read_clip() %>% paste(collapse = ' ')
     message("x is not set - using data from clipboard.")
   }
   
