@@ -1,0 +1,4 @@
+Name: rsmmry
+Description: calls SMMRY API to give back a summery of a text
+Binding: smmry_api
+Interactive: true
