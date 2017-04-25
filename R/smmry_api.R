@@ -50,7 +50,7 @@
 #'
 #' testurl <- "https://en.wikipedia.org/wiki/Aregund"
 #'
-#' \dontrun{
+#' \donttest{
 #'   smmry_api(x = lorem_ipsum)
 #'   smmry_api(x = lorem_ipsum, quick = FALSE)
 #'   smmry_api(x = testurl)
