@@ -5,7 +5,7 @@
 Rsmmry
 --------
 
-[SMMRY](http://smmry.com/) offers a service to automatically summarize a webpage or simply text. rsmmry allows to access this service from within R. 
+[SMMRY](http://smmry.com/) offers a service to automatically summarize a webpage or simply text. Rsmmry allows to access this service from within R. 
 
 Could be useful in combination with packages like [antiword](http://cran.r-project.org/package=antiword) or [tm](https://CRAN.R-project.org/package=tm) that allow text mining.  
 
@@ -21,7 +21,7 @@ Rsmmry is currently not on [CRAN](http://cran.r-project.org/), but you can use [
 Usage
 -----
 
-To use rsmmry you first of all need a SMMRY API Key (http://smmry.com/api) that has to be [set as a environment variable SMMRY_PAT](https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html#appendix-storing-api-authentication-keystokens).  
+To use Rsmmry you first of all need a SMMRY API Key (http://smmry.com/api) that has to be [set as a environment variable SMMRY_PAT](https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html#appendix-storing-api-authentication-keystokens).  
 
 With this done, you can call the main function smmry_api() to summarize text or a website. 
 
