@@ -7,6 +7,8 @@ Rsmmry
 
 [SMMRY](http://smmry.com/) offers a service to automatically summarize a webpage or simply text. rsmmry allows to access this service from within R. 
 
+Could be useful in combination with packages like [antiword](http://cran.r-project.org/package=antiword) or [tm](https://CRAN.R-project.org/package=tm) that allow text mining.  
+
 Installation
 ------------
 
