@@ -63,12 +63,6 @@ smmry_api <- function(
   keywords = NULL, quote_avoid = FALSE, breaks = FALSE
   ) {
   
-  # check if x is empty and try to access the clipboard
-  if (is.null(x) && clipr::clipr_available()) {
-    x <- clipr::read_clip() %>% paste(collapse = ' ')
-    message("x is not set - using data from clipboard.")
-  }
-  
   # check for an internet connection
   if (!curl::has_internet()) {
     stop("No internet connection. Can't use SMMRY API.")
@@ -87,6 +81,27 @@ smmry_api <- function(
     )
   }
   
+  # check if x is empty and try to access the clipboard
+  if (is.null(x) && clipr::clipr_available()) {
+    x <- clipr::read_clip() %>% paste(collapse = ' ')
+    message("x is not set - using data from clipboard.")
+  }
+  
+  # check if x is a file system link and read data from there
+  if (file.exists(x)) {
+    x <- readLines(x) %>% paste(collapse = ' ')
+    message(
+      "x seems to be a file system link - using data from this file."
+    )
+  }
+  
+  # check, if input x is a currently working url
+  # only if isurl is not set (NULL)
+  if (is.null(isurl) && RCurl::url.exists(x)) {
+    isurl <- TRUE
+    message("x seems to be a url - using homepage.")
+  }
+  
   # remove breaks from input x
   x <- gsub("[\r\n]", "", x)
   
@@ -96,12 +111,6 @@ smmry_api <- function(
     x, 
     perl = TRUE
   )
-  
-  # check, if input x is a currently working url
-  # only if isurl is not set (NULL)
-  if (is.null(isurl) && RCurl::url.exists(x)) {
-    isurl <- TRUE
-  }
   
   # parse url for api call
   url <- httr::modify_url(
